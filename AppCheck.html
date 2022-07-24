@@ -15,11 +15,11 @@
                 function() {
                     var nowTime = new Date().getTime();
                     console.log("nowTime = ",nowTime);
-                    if(nowTime - visitedAt < 3000) { 
+                    if(nowTime - visitedAt < 5000) { 
                         //location.href = "{마켓 주소}";
                         alert("not installed");
                     }
-                }, 1000);
+                }, 3000);
                 /*    
                 var iframe = document.createElement('iframe');
                 iframe.style.visibility = 'hidden'; // 보이지 않는 iframe으로 스킴을 호출한다.
@@ -27,7 +27,7 @@
                 document.body.appendChild(iframe);
                 document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거    
                 */
-                location.href = "naversearchapp://search?qmenu=voicerecg&version=1";
+                location.href = "market://search?q=openworld";
         });
 
 
