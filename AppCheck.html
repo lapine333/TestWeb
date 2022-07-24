@@ -7,8 +7,8 @@
     $(document).ready(function(){
 
         $("p").click(function(){
-            alert("The paragraph was clicked.");
-               /* 
+            //alert("The paragraph was clicked.");
+
             var visitedAt = (new Date()).getTime(); // 방문 시간
             console.log("visitedAt = ",visitedAt);
             setTimeout(
@@ -20,7 +20,12 @@
                         alert("not installed");
                     }
                 }, 500);
-                */
+
+                var iframe = document.createElement('iframe');
+                iframe.style.visibility = 'hidden'; // 보이지 않는 iframe으로 스킴을 호출한다.
+                iframe.src = 'kakaotalk://';
+                document.body.appendChild(iframe);
+                document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거    
         });
 
 
