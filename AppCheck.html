@@ -6,7 +6,7 @@
 <script>
     $(document).ready(function(){
 
-        $("p").click(function(){
+        $("a").click(function(){
             //alert("The paragraph was clicked.");
 
             var visitedAt = (new Date()).getTime(); // 방문 시간
@@ -27,7 +27,7 @@
                 document.body.appendChild(iframe);
                 document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거    
                 */
-                location.href = "kakaotalk://";
+                location.href = "naversearchapp://search?qmenu=voicerecg&version=1";
         });
 
 
@@ -46,6 +46,6 @@
 </script>
 </head>
 <body>
-    <p>Click on this paragraph.</p>
+    <a>Click on this paragraph.</a>
 </body>
 </html>
