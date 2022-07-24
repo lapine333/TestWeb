@@ -1,2 +1,26 @@
 
-Test!!!
+<!DOCTYPE html>
+<html>
+<body>
+</body>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    var visitedAt = (new Date()).getTime(); // 방문 시간
+    console.log("visitedAt = ",visitedAt);
+    setTimeout(
+		function() {
+            var nowTime = new Date().getTime();
+            console.log("nowTime = ",nowTime);
+            if(nowTime - visitedAt < 2000) { 
+                //location.href = "{마켓 주소}";
+                alert("not installed");
+            }
+        }, 500);
+
+    var iframe = document.createElement('iframe');
+    iframe.style.visibility = 'hidden'; // 보이지 않는 iframe으로 스킴을 호출한다.
+    iframe.src = 'kakaotalk://';
+    document.body.appendChild(iframe);
+    document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거
+</script>
+</html>
