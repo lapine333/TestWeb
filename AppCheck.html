@@ -2,22 +2,33 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <p>Click on this paragraph.</p>
 </body>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-    var visitedAt = (new Date()).getTime(); // 방문 시간
-    console.log("visitedAt = ",visitedAt);
-    setTimeout(
-		function() {
-            var nowTime = new Date().getTime();
-            console.log("nowTime = ",nowTime);
-            if(nowTime - visitedAt < 2000) { 
-                //location.href = "{마켓 주소}";
-                alert("not installed");
-            }
-        }, 500);
+    $(document).ready(function(){
 
-    location.href = "https://naver.com";
+        $("p").click(function(){
+            alert("The paragraph was clicked.");
+               /* 
+            var visitedAt = (new Date()).getTime(); // 방문 시간
+            console.log("visitedAt = ",visitedAt);
+            setTimeout(
+                function() {
+                    var nowTime = new Date().getTime();
+                    console.log("nowTime = ",nowTime);
+                    if(nowTime - visitedAt < 2000) { 
+                        //location.href = "{마켓 주소}";
+                        alert("not installed");
+                    }
+                }, 500);
+                */
+        });
+
+
+    });
+
+    //location.href = "https://naver.com";
     //location.href = "Intent://add?op1=20&op2=33#Intent;scheme=easycal;package=com.psw.calcultrainer;end";
     //location.href = "naversearchapp://inappbrowser?url=http%3A%2F%2Fm.naver.com&target=new&version=6";
     /*
