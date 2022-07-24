@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 
@@ -10,25 +11,9 @@
 
     var isInstalled = false; // 설치여부
 
-    // 인터벌, 타이머 삭제
-    //function clearTimer(){
-    //    clearInterval(schInterval);
-    //    clearTimeout(timer);
-    //}
-
     $(document).ready(function(){
 
         $("button").click(function(){
-
-            /*
-            setTimeout(
-                function() {
-
-                    if(document.webkitHidden || document.hidden) {
-                        alert("hidden");
-                    }
-                }, 3000);
-            */     
 
             // 앱이 설치 되어있는지 체크
 		    schInterval = setInterval(function() {
@@ -53,22 +38,12 @@
 
     });
 
-    //location.href = "https://naver.com";
-    //location.href = "Intent://add?op1=20&op2=33#Intent;scheme=easycal;package=com.psw.calcultrainer;end";
-    //location.href = "naversearchapp://inappbrowser?url=http%3A%2F%2Fm.naver.com&target=new&version=6";
-    /*
-    var iframe = document.createElement('iframe');
-    iframe.style.visibility = 'hidden'; // 보이지 않는 iframe으로 스킴을 호출한다.
-    iframe.src = 'kakaotalk://';
-    document.body.appendChild(iframe);
-    document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거
-    */
 </script>
 </head>
 <body>
     <br>
     <br>
-    <div style="display: inline-block;text-align: center">
+    <div style="position: absolute;left:50%;transform: translateX(-50%);">
         <button>Click</button>
     </div>
 </body>
