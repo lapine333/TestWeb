@@ -4,33 +4,50 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+    var timer;	// 타이머
+    var schInterval; // 인터벌
+
+    var isInstalled = false; // 설치여부
+
+    // 인터벌, 타이머 삭제
+    //function clearTimer(){
+    //    clearInterval(schInterval);
+    //    clearTimeout(timer);
+    //}
+
     $(document).ready(function(){
 
         $("a").click(function(){
-            //alert("The paragraph was clicked.");
 
-            var visitedAt = (new Date()).getTime(); // 방문 시간
-            console.log("visitedAt = ",visitedAt);
+            /*
             setTimeout(
                 function() {
-                    var nowTime = new Date().getTime();
-                    console.log("nowTime = ",nowTime);
-                    if(nowTime - visitedAt < 5000) { 
-                        //location.href = "{마켓 주소}";
-                        alert("not installed");
-                    }
+
                     if(document.webkitHidden || document.hidden) {
                         alert("hidden");
                     }
                 }, 3000);
-                /*    
-                var iframe = document.createElement('iframe');
-                iframe.style.visibility = 'hidden'; // 보이지 않는 iframe으로 스킴을 호출한다.
-                iframe.src = "market://search?q=openworld";
-                document.body.appendChild(iframe);
-                document.body.removeChild(iframe); // back 호출시 캐싱될 수 있으므로 제거    
-                */
-                location.href = "market://search?q=openworld";
+            */     
+
+            // 앱이 설치 되어있는지 체크
+		    schInterval = setInterval(function() {
+                if(document.webkitHidden || document.hidden) {
+                    isInstalled = true;
+                    clearInterval(schInterval);
+                    //clearTimeout(timer);
+                }
+            }, 500);
+
+            timer = setTimeout(function(){
+                clearInterval(schInterval);
+                if(!isInstalled)
+                    alert('앱이 설치되어있지 않습니다.');
+                else
+                    alert('앱이 설치되어있습니다.');
+            }, 2000);
+
+            location.href = "market://search?q=openworld";
         });
 
 
