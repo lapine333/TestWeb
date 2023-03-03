@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de2d1c9cd8e2db670b7b0b9a4394906e"></script>
+<script>
+
+    $(document).ready(function(){
+	
+		mapInit();
+
+        $("button").click(function(){
+
+            
+        });
+
+
+    });
+	
+	function mapInit () {
+			
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	}
+
+</script>
+</head>
+<body>
+    <br>
+    <br>
+	<div id="map" style="width:500px;height:400px;"></div>
+    <div style="position: absolute;left:50%;transform: translateX(-50%);">
+        <button style="font-size:30px;">Click</button>
+    </div>
+</body>
+</html>
