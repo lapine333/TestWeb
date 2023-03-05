@@ -16,45 +16,54 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de2d1c9cd8e2db670b7b0b9a4394906e&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 1 // 지도의 확대 레벨
-    };  
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3 // 지도의 확대 레벨
+    };
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+var startSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png', // 출발 마커이미지의 주소입니다    
+    startSize = new kakao.maps.Size(50, 45), // 출발 마커이미지의 크기입니다 
+    startOption = { 
+        offset: new kakao.maps.Point(15, 43) // 출발 마커이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+    };
 
-var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+// 출발 마커 이미지를 생성합니다
+var startImage = new kakao.maps.MarkerImage(startSrc, startSize, startOption);
 
-// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-/*
-kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-            
-            var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' + 
-                            detailAddr + 
-                        '</div>';
+var startDragSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_drag.png', // 출발 마커의 드래그 이미지 주소입니다    
+    startDragSize = new kakao.maps.Size(50, 64), // 출발 마커의 드래그 이미지 크기입니다 
+    startDragOption = { 
+        offset: new kakao.maps.Point(15, 54) // 출발 마커의 드래그 이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+    };
 
-            // 마커를 클릭한 위치에 표시합니다 
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
+// 출발 마커의 드래그 이미지를 생성합니다
+var startDragImage = new kakao.maps.MarkerImage(startDragSrc, startDragSize, startDragOption);
 
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-        }   
-    });
+// 출발 마커가 표시될 위치입니다 
+var startPosition = new kakao.maps.LatLng(33.450701, 126.570667); 
+
+// 출발 마커를 생성합니다
+var startMarker = new kakao.maps.Marker({
+    map: map, // 출발 마커가 지도 위에 표시되도록 설정합니다
+    position: startPosition,
+    draggable: true, // 출발 마커가 드래그 가능하도록 설정합니다
+    image: startImage // 출발 마커이미지를 설정합니다
 });
-*/
 
+// 출발 마커에 dragstart 이벤트를 등록합니다
+kakao.maps.event.addListener(startMarker, 'dragstart', function() {
+    // 출발 마커의 드래그가 시작될 때 마커 이미지를 변경합니다
+    startMarker.setImage(startDragImage);
+});
+
+// 출발 마커에 dragend 이벤트를 등록합니다
+kakao.maps.event.addListener(startMarker, 'dragend', function() {
+     // 출발 마커의 드래그가 종료될 때 마커 이미지를 원래 이미지로 변경합니다
+    startMarker.setImage(startImage);
+});
+/*
 // 출발 마커에 dragend 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'dragend', function(mouseEvent) {
 	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
@@ -86,7 +95,7 @@ function searchAddrFromCoords(coords, callback) {
 function searchDetailAddrFromCoords(coords, callback) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-}
+}*/
 
 </script>
 </body>
