@@ -31,6 +31,7 @@ var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입
     infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+/*
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
@@ -52,11 +53,10 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         }   
     });
 });
+*/
 
 // 출발 마커에 dragend 이벤트를 등록합니다
 kakao.maps.event.addListener(startMarker, 'dragend', function() {
-     // 출발 마커의 드래그가 종료될 때 마커 이미지를 원래 이미지로 변경합니다
-    //startMarker.setImage(startImage);
 	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
