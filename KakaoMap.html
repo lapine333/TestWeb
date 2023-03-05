@@ -63,11 +63,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     });
 });
 
-// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-kakao.maps.event.addListener(map, 'idle', function() {
-    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-});
-
 function searchAddrFromCoords(coords, callback) {
     // 좌표로 행정동 주소 정보를 요청합니다
     geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
@@ -78,25 +73,11 @@ function searchDetailAddrFromCoords(coords, callback) {
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
 
-// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-function displayCenterInfo(result, status) {
-    if (status === kakao.maps.services.Status.OK) {
-        var infoDiv = document.getElementById('centerAddr');
-
-        for(var i = 0; i < result.length; i++) {
-            // 행정동의 region_type 값은 'H' 이므로
-            if (result[i].region_type === 'H') {
-                infoDiv.innerHTML = result[i].address_name;
-                break;
-            }
-        }
-    }    
-}
 </script>
 </body>
 </html>
 
-
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,8 +173,5 @@ function displayCenterInfo(result, status) {
     <br>
     <br>
 	<div id="map" style="width:500px;height:400px;position: absolute;left:50%;transform: translateX(-50%);"></div>
-    <!--<div style="position: absolute;left:50%;transform: translateX(-50%);">
-        <button style="font-size:30px;">Click</button>
-    </div>-->
 </body>
-</html>
+</html> -->
