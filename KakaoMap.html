@@ -9,12 +9,12 @@
 </style>
 </head>
 <body>
-<div class="map_wrap" style="width:100%;height:70%;position:relative;">
+<div class="map_wrap" style="width:100%;height:70%;position:absolute;">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 </div>
 <br>
 <br>
-<div style="position: absolute;left:50%;transform: translateX(-50%);">
+<div style="position: absolute;left:50%;top:80%;transform: translateX(-50%);">
     <button style="font-size:30px;">Click</button>
 </div>
 
@@ -92,8 +92,7 @@ function searchAddrFromCoordsCallback(result, status) {
 			// 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
-		}   
-	}
+	}   
 }
 
 function searchAddrFromCoords(coords, callback) {
