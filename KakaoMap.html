@@ -42,8 +42,13 @@ $(document).ready(function(){
 	mapInit();
 	
 	$("button").click(function(){
-
-		geocoder.coord2Address( 127.963165,37.345589, function(result, status) {
+		
+		//var longitude = 127.963165,37;
+		//var latitude = 37.345589;
+		var longitude = 37.601055;
+		var latitude = 127.064910;
+		
+		geocoder.coord2Address( longitude,latitude, function(result, status) {
 			if (status === kakao.maps.services.Status.OK) {
 				console.log("result = ",result);
 			}   
