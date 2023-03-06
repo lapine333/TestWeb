@@ -22,15 +22,15 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de2d1c9cd8e2db670b7b0b9a4394906e&libraries=services"></script>
 <script>
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+var start_lon = 127.064910;
+var start_lat = 37.601055;
+	
+var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 
-	var longitude = 127.064910;
-	var latitude = 37.601055;
-
-    mapOption = {
-        center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+var mapOption = {
+        center: new kakao.maps.LatLng(start_lat, start_lon), // 지도의 중심좌표
         level: 1 // 지도의 확대 레벨
-    };  
+};  
 
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
