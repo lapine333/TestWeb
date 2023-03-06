@@ -43,7 +43,7 @@ $(document).ready(function(){
 	
 	$("button").click(function(){
 
-		geocoder.coord2Address(37.345589, 127.963165, function(result, status) {
+		geocoder.coord2Address( 127.963165,37.345589, function(result, status) {
 			if (status === kakao.maps.services.Status.OK) {
 				console.log("result = ",result);
 			}   
