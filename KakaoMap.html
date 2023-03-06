@@ -42,15 +42,12 @@ $(document).ready(function(){
 	mapInit();
 	
 	$("button").click(function(){
-	
-		geocoder.coord2RegionCode(37.345589, 127.963165,function(mouseEvent) {
-			searchDetailAddrFromCoords(mouseEvent.latLng,function(result, status) {
-				if (status === kakao.maps.services.Status.OK) {
-					console.log("result = ",result);
-				}   
-			});            
-		});
-		
+
+		geocoder.coord2Address(37.345589, 127.963165, function(result, status) {
+			if (status === kakao.maps.services.Status.OK) {
+				console.log("result = ",result);
+			}   
+		});            
 	});	
 });	
 
