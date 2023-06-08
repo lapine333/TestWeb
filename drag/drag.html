@@ -73,20 +73,31 @@
   //$(function() {
   function gnbMenu(depth1, depth2) {
       //탭메뉴 중앙위치
-      var $scrItem = $('.nav_slide');
+      var $nav_slide = $('.nav_slide');
       var scrIWidth = 0;
-      for (var i=0; i<$scrItem.length; i++) {
-          scrIWidth += $scrItem.eq(i).outerWidth();
+      for (var i=0; i<$nav_slide.length; i++) {
+          scrIWidth += $nav_slide.eq(i).outerWidth();
       }
       $('.nav_list').css('width', scrIWidth);
-      /*
-      $scrItem.on("click", function () {
+      
+      $nav_slide.on("click", function () {
+	      console.log("click. isDrag =",isDrag);	
           var target = $(this);
-          $scrItem.removeClass('on');
+          $nav_slide.removeClass('on');
           target.addClass('on');
           muCenter(target);
+		  
+		  if(!isDrag) {
+			  var url = target.data("url");
+			  console.log("url = ",url);
+			  if(url != undefined) {
+				location.href = url;
+			  }
+		  }
+		  
+		  isDrag = false;
       });
-  
+	  	
       function muCenter(target){
           var box = $('.nav_wrap');
           var boxItem = box.find('.nav_slide');
@@ -117,9 +128,9 @@
       }
   
       // //페이지인식
-      var target = $scrItem.eq(depth1-1).addClass('on');
+      var target = $nav_slide.eq(depth1-1).addClass('on');
       muCenter(target);
-	  */	
+	  	
 
       //마우스 클릭여부
       var isClick = false;
@@ -129,7 +140,8 @@
       var $navWrap = $('.nav_wrap');
 
       $navWrap.on('mousedown', function(e) {
-          isClick = true;
+          console.log("mousedown");
+		  isClick = true;
 		  isDrag = false;
           var obj = $(this);
           x = obj.scrollLeft();
@@ -137,10 +149,10 @@
 
           pre_x = e.screenX;
           pre_y = e.screenY;
-          //onclick = false;
       });
       $navWrap.on('mousemove', function(e) {
-          if (isClick) {
+          console.log("mousemove");
+		  if (isClick) {
 			isDrag = true;
             var obj = $(this);
             obj.scrollLeft(x - e.screenX + pre_x);
@@ -151,27 +163,26 @@
 	  
       $navWrap.on('mouseup', function(e) {
 	  
+		  console.log("mouseup");	
           isClick = false;
-		  isDrag = false;
+
+		  //if(!isDrag) {	
+		  //	location.href="http://naver.com";
+		  //}
+		  //isDrag = false;
           return false;
           
       });
 
 	  $navWrap.on('mouseleave', function(e) {
 	  
+		  console.log("mouseleave");	
           isClick = false;
 		  isDrag = false;
           return false;
           
       });
-      
-	  $('#nav_slide3').click(function(){
-		  
-		  console.log("isDrag = ",isDrag);	
-		  if(!isDrag)	
-			location.href="http://naver.com";
-      });
-
+	
     }
   // });
 </script>
@@ -188,7 +199,7 @@
     <ul class="nav_list">
         <li class="nav_slide"><a href="#none">고객 감사 할인쿠폰</a></li>
         <li class="nav_slide"><a href="#none">창립기념 특가</a></li>
-        <li class="nav_slide" id="nav_slide3"><a href="#none">꽝 없는 랜덤(링크있음)</a></li>
+        <li class="nav_slide" data-url="http://naver.com"><a href="#none">꽝 없는 랜덤(링크있음)</a></li>
         <li class="nav_slide"><a href="#none">출석체크 EVENT</a></li>
         <li class="nav_slide"><a href="#none">다섯번째 메뉴</a></li>
         <li class="nav_slide"><a href="#none">여섯번째 메뉴</a></li>
