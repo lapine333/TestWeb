@@ -8,7 +8,11 @@
     $(document).ready(function(){
 
         $("button").click(function(){
-            window.open("https://google.com");
+            setTimeout(function(){
+                window.open("https://www.google.com");
+                //popup.location.href = "https://www.google.com";
+            },2000);
+            //window.open("https://google.com");
         });
     });
 
