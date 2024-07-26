@@ -66,7 +66,7 @@ function _init() {
     setTimeout(_init,200);
     return;
   }
-  FinCert.Sdk.init(init)
+  FinCert.Sdk.init(initParam)
 }
 
 function getYYYYMMDD() {
