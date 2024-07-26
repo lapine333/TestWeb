@@ -1,4 +1,6 @@
 
+// fincert SDK
+
 // 운영계인지 여부
 var isProd = false;
 var yeskey_url = "";
@@ -14,5 +16,14 @@ function getYesKeyUrl() {
 }
 
 function loadSDK() {
-  var scriptElem = document.createElement("script");
+  var _scriptElem = document.createElement('script');
+  _scriptElem.src = getYesKeyUrl() + getYYYYMMDD();
+  _scriptElem.id = "fincertSDK";
+  document.querySelector("body").appendChild(_scriptElem);
+  _scriptElem.onerror = function() {
+    alert("loadSDK 오류 발생");
+  };
+  _scriptElem.onload = function() {
+    alert("loadSDK 성공");
+  }
 }
