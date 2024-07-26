@@ -43,8 +43,8 @@ function initSDK() {
   }
   param.lang = "ko";
 
-  initParam = JSON.stringify(param);
-  console.log("initParam = ",initParam);
+  //initParam = JSON.stringify(param);
+  //console.log("initParam = ",initParam);
   
   initParam.success = initSdk_SucCallback;
   initParam.fail = initSdk_FailCallback;
