@@ -28,7 +28,9 @@ function loadSDK() {
   };
   _scriptElem.onload = function() {
     //alert("loadSDK() 성공");
-    initSDK();
+    //initSDK();
+
+    FinCert.Sdk.sign(signParam);
   }
 }
 
