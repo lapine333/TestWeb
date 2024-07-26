@@ -21,10 +21,10 @@ function loadSDK() {
   _scriptElem.id = "fincertSDK";
   document.querySelector("body").appendChild(_scriptElem);
   _scriptElem.onerror = function() {
-    alert("loadSDK 오류 발생");
+    alert("loadSDK() 오류 발생");
   };
   _scriptElem.onload = function() {
-    alert("loadSDK 성공");
+    alert("loadSDK() 성공");
   }
 }
 
