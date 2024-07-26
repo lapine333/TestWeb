@@ -42,11 +42,22 @@ function initSDK() {
     param.apiKey  = "a68fb972-9d93-4ed2-8093-bcac8727eb26";
   }
   param.lang = "ko";
-  if(JSON.stringify(param) == "{}") {
-    FinCert.Sdk.init();
-  } else {
-    
-  }
+
+  initParam = JSON.stringify(param);
+  console.log("initParam = ",initParam);
+  
+  initParam.success = initSdk_SucCallback;
+  initParam.fail = initSdk_FailCallback;
+
+  _init();
+}
+
+function initSdk_SucCallback() {
+  alert("success");
+}
+
+function initSdk_FailCallback() {
+  alert("fail");
 }
 
 var FinCert;
