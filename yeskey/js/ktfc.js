@@ -40,4 +40,5 @@ function getYYYYMMDD() {
   if(day.length == 1) {
     day = "0" + day;
   }
+  return year + month + day;
 }
