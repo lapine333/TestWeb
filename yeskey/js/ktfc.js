@@ -3,10 +3,13 @@
 
 // 운영계인지 여부
 var isProd = false;
-var yeskey_url = "";
 
 var yesKey_url_prod = "https://4user.yeskey.or.kr/v1/fincert.js?dt=";   // 운영
 var yesKey_url_test = "https://t-4user.yeskey.or.kr/v1/fincert.js?dt="; // 테스트
+
+var yeskey_url = "";
+var initParam = {};
+var FinCert;
 
 function getYesKeyUrl() {
   if(isProd)
@@ -24,8 +27,35 @@ function loadSDK() {
     alert("loadSDK() 오류 발생");
   };
   _scriptElem.onload = function() {
-    alert("loadSDK() 성공");
+    //alert("loadSDK() 성공");
+    initSDK();
   }
+}
+
+function initSDK() {
+  var param = {};
+  if(isProd) {
+    param.orgCode = "RF10050000";
+    param.apiKey  = "a259d367-69c0-44d3-b552-c90c2a15bae3";
+  } else {
+    param.orgCode = "D201100083";
+    param.apiKey  = "a68fb972-9d93-4ed2-8093-bcac8727eb26";
+  }
+  param.lang = "ko";
+  if(JSON.stringify(param) == "{}") {
+    FinCert.Sdk.init();
+  } else {
+    
+  }
+}
+
+var FinCert;
+function _init() {
+  if(!FinCert) {
+    setTimeout(_init,200);
+    return;
+  }
+  FinCert.Sdk.init(init)
 }
 
 function getYYYYMMDD() {
