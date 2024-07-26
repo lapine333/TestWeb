@@ -30,6 +30,7 @@ function loadSDK() {
     //alert("loadSDK() 성공");
     //initSDK();
 
+    var signParam = {};
     FinCert.Sdk.sign(signParam);
   }
 }
