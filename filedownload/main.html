@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0, user-scalabe=no">
+    <script type="text/javascript" src="jquery-1.11.0.min.js"/></script>
+    <style>
+        .center {
+            padding: 5px 5px;
+            text-align:center; 
+        }
+        .border {
+            border : 1px solid blue;
+            padding: 3px 3px;
+        }
+        .font22 {
+            font-size:22px;
+        }
+    </style>
+    <script type="text/javascript">
+        function fileDownload()
+        {
+            //location.href = "https://pdfobject.com/pdf/sample.pdf";
+            let _a = document.createElement('a');
+            _a.target = '_blank';
+            let url = "sample.pdf";
+            _a.href = url;
+            _a.download = "sample.pdf";
+            document.body.appendChild(_a);
+            
+            _a.click();
+            _a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        $(document).ready(function(){
+            //toSwift();
+        });
+        
+    </script>
+</head>
+<body>
+    <br>
+    <div class="center">
+        <span class="border font22" onclick="fileDownload();">file download</span>
+    </div>
+    <div class="center">
+        <a href="/filedownload/myw3schoolsimage.jpg" download>
+            <img src="/filedownload/myw3schoolsimage.jpg" alt="W3Schools" width="104" height="142">
+        </a>
+    </div>
+</body>
+</html>
