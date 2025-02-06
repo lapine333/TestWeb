@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0, user-scalabe=no">
+    <script type="text/javascript" src="jquery-1.11.0.min.js"/></script>
+    <style>
+        .center {
+            padding: 5px 5px;
+            text-align:center; 
+        }
+        .border {
+            border : 1px solid blue;
+            padding: 3px 3px;
+        }
+        .font22 {
+            font-size:22px;
+        }
+    </style>
+    <script type="text/javascript">
+        function fromNative_when_load()
+        {
+            $("#inputFromNative").val("load OK")
+        }
+    
+        function fromNative(s)
+        {
+            console.log("s=",s);
+            
+            $("#inputFromNative").val(s)
+            //$("#inputFromNative").val("test")
+
+            return "fromNative success"
+        }
+
+        function toSwift()
+        {
+            var s =  $("#inputToNative").val()
+            webkit.messageHandlers.scriptHandler.postMessage(s);
+        }
+        
+        function fileDownload()
+        {
+            //location.href = "https://pdfobject.com/pdf/sample.pdf";
+            let _a = document.createElement('a');
+            _a.target = '_blank';
+            _a.href = "https://pdfobject.com/pdf/sample.pdf";
+            document.body.appendChild(_a);
+            _a.click();
+        }
+        
+        $(document).ready(function(){
+            //toSwift();
+        });
+        
+    </script>
+</head>
+<body>
+    <br>
+    <div class="center">
+        <label>&#45></label>
+        <input id="inputFromNative" class="font22" type="text" style="width:39%;">
+    </div>
+    <div class="center">
+        <label><&#45</label>
+        <input id="inputToNative" class="font22" type="text" style="width:24%;">
+        <span class="border font22" onclick="toSwift();">Send</span>
+    </div>
+    <br>
+    <div class="center">
+        <span class="border font22" onclick="alert('3');">Alert</span>
+    </div>
+    <br>
+    <div class="center">
+        <span class="border font22" onclick="confirm('ok?');">Confirm</span>
+    </div>
+    <br>
+    <div class="center">
+        <span class="border font22" onclick="fileDownload();">file download</span>
+    </div>
+</body>
+</html>
