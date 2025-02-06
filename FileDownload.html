@@ -17,27 +17,6 @@
         }
     </style>
     <script type="text/javascript">
-        function fromNative_when_load()
-        {
-            $("#inputFromNative").val("load OK")
-        }
-    
-        function fromNative(s)
-        {
-            console.log("s=",s);
-            
-            $("#inputFromNative").val(s)
-            //$("#inputFromNative").val("test")
-
-            return "fromNative success"
-        }
-
-        function toSwift()
-        {
-            var s =  $("#inputToNative").val()
-            webkit.messageHandlers.scriptHandler.postMessage(s);
-        }
-        
         function fileDownload()
         {
             //location.href = "https://pdfobject.com/pdf/sample.pdf";
@@ -55,24 +34,6 @@
     </script>
 </head>
 <body>
-    <br>
-    <div class="center">
-        <label>&#45></label>
-        <input id="inputFromNative" class="font22" type="text" style="width:39%;">
-    </div>
-    <div class="center">
-        <label><&#45</label>
-        <input id="inputToNative" class="font22" type="text" style="width:24%;">
-        <span class="border font22" onclick="toSwift();">Send</span>
-    </div>
-    <br>
-    <div class="center">
-        <span class="border font22" onclick="alert('3');">Alert</span>
-    </div>
-    <br>
-    <div class="center">
-        <span class="border font22" onclick="confirm('ok?');">Confirm</span>
-    </div>
     <br>
     <div class="center">
         <span class="border font22" onclick="fileDownload();">file download</span>
