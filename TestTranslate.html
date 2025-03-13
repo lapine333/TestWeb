@@ -39,8 +39,10 @@ $(document).ready(function(){
 			ul = document.querySelector('.skiptranslate');
 			if(ul == null) 
 				closeclick();
-			 else
+			 else {
 				ul.style.display = "none";
+				document.body.style.top = "0px";
+			}
 		},1000);
 	}
 });
