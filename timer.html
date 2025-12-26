@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>TestTimer</h2>
+
+<p id="demo"></p>
+
+<script>
+//document.getElementById("demo").innerHTML = "My First JavaScript";
+var n = 0;
+let timerId = setInterval(
+	function tick(){
+        console.log(new Date().toLocaleString() + " : n = " + n); 
+    	document.getElementById("demo").innerHTML = "" + n++;
+    }
+    , 1000);
+</script>
+
+</body>
+</html> 
