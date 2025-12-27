@@ -7,14 +7,33 @@
 <p id="demo"></p>
 
 <script>
-//document.getElementById("demo").innerHTML = "My First JavaScript";
+
+var data = "";
+
 var n = 0;
-let timerId = setInterval(
+let tick_timerId = setInterval(
 	function tick(){
         console.log(new Date().toLocaleString() + " : n = " + n); 
     	document.getElementById("demo").innerHTML = "" + n++;
+
+        if(data != ""){
+            console.log("data is setted")
+            clearInterval(tick_timerId);
+        } else {
+            console.log("data is not setted")
+        }
     }
     , 1000);
+
+// 1분후 데이타 세팅
+setTimeout(
+	function tick(){
+        console.log("data is 333333")
+        data = "333333";
+    }
+    , 1 * 60 * 1000);  
+
+
 </script>
 
 </body>
