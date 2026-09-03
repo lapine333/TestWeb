@@ -1616,6 +1616,85 @@
 }
 </style>
 
+
+<style>
+/* AI 분석 하단 - DB다이렉트 전체 보장분석 이동 섹션 */
+.ai-full-analysis-section{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-top:26px;
+  padding:20px;
+  border:1px solid #d9e3dd;
+  border-radius:14px;
+  background:#f8fbf9;
+}
+.ai-full-analysis-icon{
+  flex:0 0 44px;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e8f4ed;
+  color:#0a7d47;
+  font-size:22px;
+  font-weight:900;
+}
+.ai-full-analysis-copy{
+  flex:1 1 auto;
+  min-width:0;
+}
+.ai-full-analysis-title{
+  display:block;
+  margin-bottom:5px;
+  color:#173f2b;
+  font-size:18px;
+  font-weight:850;
+  line-height:1.4;
+}
+.ai-full-analysis-desc{
+  margin:0;
+  color:#5d6962;
+  font-size:15px;
+  line-height:1.6;
+}
+.ai-full-analysis-button{
+  flex:0 0 auto;
+  min-height:44px;
+  padding:0 16px;
+  border-radius:9px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#0a7d47;
+  color:#fff !important;
+  text-decoration:none !important;
+  font-size:14px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.ai-full-analysis-button:hover{
+  background:#08683c;
+}
+@media (max-width:760px){
+  .ai-full-analysis-section{
+    flex-wrap:wrap;
+    align-items:flex-start;
+    padding:17px;
+  }
+  .ai-full-analysis-copy{
+    flex:1 1 calc(100% - 60px);
+  }
+  .ai-full-analysis-button{
+    width:100%;
+    margin-top:2px;
+  }
+}
+</style>
+
 </head>
 <body>
   <div class="page">
@@ -2194,6 +2273,22 @@
   })();
 
 </script>
+
+
+<section class="ai-full-analysis-section" aria-label="DB다이렉트 전체 보장분석 안내">
+  <div class="ai-full-analysis-icon" aria-hidden="true">✓</div>
+  <div class="ai-full-analysis-copy">
+    <strong class="ai-full-analysis-title">가입된 보험의 전체 보장분석이 필요하신가요?</strong>
+    <p class="ai-full-analysis-desc">가입된 보험의 전체 보장분석을 받으려면 DB다이렉트의 보장분석 페이지로 이동해 주세요.</p>
+  </div>
+  <a class="ai-full-analysis-button"
+     href="https://m.directdb.co.kr/aseanal/cnfm/custInfoAnalView.do"
+     target="_blank"
+     rel="noopener noreferrer">
+    전체 보장분석
+    <span aria-hidden="true">↗</span>
+  </a>
+</section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
