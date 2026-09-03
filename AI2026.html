@@ -1621,6 +1621,9 @@
 /* AI 분석 하단 - DB다이렉트 전체 보장분석 이동 섹션 */
 .ai-full-analysis-section{
   display:flex;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
   align-items:center;
   gap:16px;
   margin-top:26px;
@@ -2159,7 +2162,22 @@
             실제 보장 여부·보험금 지급조건·가입한도는 보험증권 및 약관을 기준으로 확인해야 합니다.
           </div>
         </div>
-      </section>
+      
+<section class="ai-full-analysis-section" aria-label="DB다이렉트 전체 보장분석 안내">
+  <div class="ai-full-analysis-icon" aria-hidden="true">✓</div>
+  <div class="ai-full-analysis-copy">
+    <strong class="ai-full-analysis-title">가입된 보험의 전체 보장분석이 필요하신가요?</strong>
+    <p class="ai-full-analysis-desc">가입된 보험의 전체 보장분석을 받으려면 DB다이렉트의 보장분석 페이지로 이동해 주세요.</p>
+  </div>
+  <a class="ai-full-analysis-button"
+     href="https://m.directdb.co.kr/aseanal/cnfm/custInfoAnalView.do"
+     target="_blank"
+     rel="noopener noreferrer">
+    전체 보장분석
+    <span aria-hidden="true">↗</span>
+  </a>
+</section>
+</section>
 
     </main>
   </div>
@@ -2275,20 +2293,7 @@
 </script>
 
 
-<section class="ai-full-analysis-section" aria-label="DB다이렉트 전체 보장분석 안내">
-  <div class="ai-full-analysis-icon" aria-hidden="true">✓</div>
-  <div class="ai-full-analysis-copy">
-    <strong class="ai-full-analysis-title">가입된 보험의 전체 보장분석이 필요하신가요?</strong>
-    <p class="ai-full-analysis-desc">가입된 보험의 전체 보장분석을 받으려면 DB다이렉트의 보장분석 페이지로 이동해 주세요.</p>
-  </div>
-  <a class="ai-full-analysis-button"
-     href="https://m.directdb.co.kr/aseanal/cnfm/custInfoAnalView.do"
-     target="_blank"
-     rel="noopener noreferrer">
-    전체 보장분석
-    <span aria-hidden="true">↗</span>
-  </a>
-</section>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
