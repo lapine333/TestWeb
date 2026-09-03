@@ -1433,6 +1433,189 @@
 
 
 </style>
+
+
+<style>
+/* AI 분석 화면 '내용' 폰트만 +2px - 상단 탭 버튼 제외 */
+.ai-panel .ai-summary-title,
+.ai-result .ai-summary-title,
+.ai-content .ai-summary-title {
+  font-size: 22px !important;
+}
+.ai-panel .ai-summary-desc,
+.ai-result .ai-summary-desc,
+.ai-content .ai-summary-desc {
+  font-size: 16px !important;
+}
+.ai-panel .ai-card-title,
+.ai-result .ai-card-title,
+.ai-content .ai-card-title,
+.ai-panel .recommend-title,
+.ai-result .recommend-title {
+  font-size: 18px !important;
+}
+.ai-panel .ai-card-desc,
+.ai-result .ai-card-desc,
+.ai-content .ai-card-desc,
+.ai-panel .recommend-desc,
+.ai-result .recommend-desc {
+  font-size: 16px !important;
+}
+.ai-panel .ai-metric-label,
+.ai-result .ai-metric-label,
+.ai-content .ai-metric-label {
+  font-size: 15px !important;
+}
+.ai-panel .ai-metric-value,
+.ai-result .ai-metric-value,
+.ai-content .ai-metric-value {
+  font-size: 24px !important;
+}
+
+/* AI 분석 화면 내부의 일반 본문/목록/뱃지 */
+.ai-panel .ai-body,
+.ai-panel .ai-text,
+.ai-panel .analysis-text,
+.ai-panel .insight-text,
+.ai-panel .ai-list li,
+.ai-result .ai-body,
+.ai-result .ai-text,
+.ai-result .analysis-text,
+.ai-result .insight-text,
+.ai-result li,
+.ai-content .ai-body,
+.ai-content .ai-text,
+.ai-content .analysis-text,
+.ai-content .insight-text,
+.ai-content li {
+  font-size: 16px !important;
+  line-height: 1.6;
+}
+</style>
+
+
+<style>
+/* 상단 약관요약 카드 - 아코디언형 연결 UI */
+.summary-grid {
+  align-items: stretch;
+}
+
+.summary-card.clickable {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: visible;
+}
+
+.summary-card.clickable .summary-toggle-icon {
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 800;
+  color: #68736d;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.summary-card.clickable.active {
+  border-color: #0a7d47 !important;
+  background: #f5faf7 !important;
+  box-shadow: 0 5px 16px rgba(10, 125, 71, .10) !important;
+}
+
+.summary-card.clickable.active .summary-toggle-icon {
+  transform: rotate(180deg);
+  color: #0a7d47;
+}
+
+.summary-card.clickable.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-right: 1px solid #cfd8d3;
+  border-bottom: 1px solid #cfd8d3;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: 4;
+}
+
+/* 펼쳐진 상세영역을 선택 카드와 하나의 컴포넌트처럼 연결 */
+#paymentReasonDetail,
+#nonPaymentReasonDetail,
+#otherTermsDetail {
+  position: relative;
+  margin-top: 14px !important;
+  border: 1px solid #d7dfda;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(20, 45, 32, .06);
+  overflow: hidden;
+}
+
+.summary-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 18px;
+  border-bottom: 1px solid #e8ece9;
+  background: #f8fbf9;
+  color: #173f2b;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.summary-detail-badge {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #eaf5ee;
+  color: #0a7d47;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* 상세영역 내부 기존 컨텐츠와 헤더 사이 간격 */
+#paymentReasonDetail > .payment-infographic,
+#nonPaymentReasonDetail > .nonpayment-infographic,
+#otherTermsDetail > .other-terms-infographic {
+  margin-top: 0 !important;
+}
+
+/* 모바일 */
+@media (max-width: 760px) {
+  .summary-card.clickable {
+    gap: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .summary-card.clickable .summary-toggle-icon {
+    font-size: 15px;
+  }
+
+  .summary-card.clickable.active::after {
+    bottom: -9px;
+    width: 15px;
+    height: 15px;
+  }
+
+  .summary-detail-header {
+    padding: 13px 14px;
+    font-size: 15px;
+  }
+
+  .summary-detail-badge {
+    display: none;
+  }
+}
+</style>
+
 </head>
 <body>
   <div class="page">
@@ -1519,13 +1702,13 @@
 
       <div class="summary-grid">
         <button class="summary-card clickable" id="paymentReasonCard" type="button" aria-expanded="false" aria-controls="paymentReasonDetail">
-          <div class="kicker">보험금 지급사유</div>
+          <div class="kicker">보험금 지급사유</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
         </button>
         <button class="summary-card clickable" id="nonPaymentReasonCard" type="button" aria-expanded="false" aria-controls="nonPaymentReasonDetail">
-          <div class="kicker">보험금을 지급하지 않는 사유</div>
+          <div class="kicker">보험금을 지급하지 않는 사유</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
         </button>
         <button class="summary-card clickable" id="otherTermsCard" type="button" aria-expanded="false" aria-controls="otherTermsDetail">
-          <div class="kicker">기타 주요 약관 내용</div>
+          <div class="kicker">기타 주요 약관 내용</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
         </button>
       </div>
       <section class="coverage-section" id="otherTermsDetail" aria-label="기타 주요 약관 내용 상세">
@@ -1840,9 +2023,9 @@
               </div>
 
               <div class="ai-product-tags">
-                <span class="ai-product-tag">벌금 보장 검토</span>
-                <span class="ai-product-tag">변호사선임비용 검토</span>
-                <span class="ai-product-tag">운전자 비용 보완</span>
+                
+                
+                
               </div>
 
               <div class="ai-product-action">
@@ -1866,9 +2049,9 @@
               </div>
 
               <div class="ai-product-tags">
-                <span class="ai-product-tag">교통사고처리지원</span>
-                <span class="ai-product-tag">법률비용 점검</span>
-                <span class="ai-product-tag">중복보장 확인</span>
+                
+                
+                
               </div>
 
               <div class="ai-product-action">
@@ -2011,5 +2194,30 @@
   })();
 
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var accordionItems = [
+    { cardId: 'paymentReasonCard', detailId: 'paymentReasonDetail' },
+    { cardId: 'nonPaymentReasonCard', detailId: 'nonPaymentReasonDetail' },
+    { cardId: 'otherTermsCard', detailId: 'otherTermsDetail' }
+  ];
+
+  accordionItems.forEach(function (item) {
+    var card = document.getElementById(item.cardId);
+    var detail = document.getElementById(item.detailId);
+    if (!card || !detail) return;
+
+    card.setAttribute('aria-expanded', card.classList.contains('active') ? 'true' : 'false');
+
+    var observer = new MutationObserver(function () {
+      var opened = card.classList.contains('active');
+      card.setAttribute('aria-expanded', opened ? 'true' : 'false');
+    });
+    observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+  });
+});
+</script>
+
 </body>
 </html>
