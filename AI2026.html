@@ -1698,6 +1698,71 @@
 }
 </style>
 
+
+<style>
+/* 약관요약 토글 아이콘 - 원형 Chevron */
+.summary-card.clickable .summary-toggle-icon {
+  position: relative;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  margin-left: 2px;
+  border: 1px solid #d9e8df;
+  border-radius: 50%;
+  background: #f3faf6;
+  color: #0a7d47;
+  font-size: 0;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform .22s ease, background-color .22s ease, border-color .22s ease;
+}
+
+.summary-card.clickable .summary-toggle-icon::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.summary-card.clickable:hover .summary-toggle-icon {
+  background: #eaf6ef;
+  border-color: #bddbc9;
+}
+
+.summary-card.clickable.active .summary-toggle-icon {
+  color: #087443;
+  background: #e5f3ea;
+  border-color: #b8d9c5;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 760px) {
+  .summary-card.clickable .summary-toggle-icon {
+    flex-basis: 24px;
+    width: 24px;
+    height: 24px;
+    margin-left: 0;
+  }
+
+  .summary-card.clickable .summary-toggle-icon::before {
+    width: 6px;
+    height: 6px;
+    border-right-width: 1.7px;
+    border-bottom-width: 1.7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summary-card.clickable .summary-toggle-icon {
+    transition: none;
+  }
+}
+</style>
+
 </head>
 <body>
   <div class="page">
@@ -1784,13 +1849,13 @@
 
       <div class="summary-grid">
         <button class="summary-card clickable" id="paymentReasonCard" type="button" aria-expanded="false" aria-controls="paymentReasonDetail">
-          <div class="kicker">보험금 지급사유</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
+          <div class="kicker">보험금 지급사유</div><span class="summary-toggle-icon" aria-hidden="true"></span>
         </button>
         <button class="summary-card clickable" id="nonPaymentReasonCard" type="button" aria-expanded="false" aria-controls="nonPaymentReasonDetail">
-          <div class="kicker">보험금을 지급하지 않는 사유</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
+          <div class="kicker">보험금을 지급하지 않는 사유</div><span class="summary-toggle-icon" aria-hidden="true"></span>
         </button>
         <button class="summary-card clickable" id="otherTermsCard" type="button" aria-expanded="false" aria-controls="otherTermsDetail">
-          <div class="kicker">기타 주요 약관 내용</div><span class="summary-toggle-icon" aria-hidden="true">⌄</span>
+          <div class="kicker">기타 주요 약관 내용</div><span class="summary-toggle-icon" aria-hidden="true"></span>
         </button>
       </div>
       <section class="coverage-section" id="otherTermsDetail" aria-label="기타 주요 약관 내용 상세">
@@ -2317,6 +2382,392 @@ document.addEventListener('DOMContentLoaded', function () {
     observer.observe(card, { attributes: true, attributeFilter: ['class'] });
   });
 });
+</script>
+
+
+
+<!-- ===== Performance-friendly motion: opacity + transform only ===== -->
+<style id="motionStyles">
+  @keyframes motionRise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes motionPop {
+    from { opacity: 0; transform: translateY(10px) scale(.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes motionBarGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  @property --ai-good-rate {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+  }
+
+  @keyframes motionDonutFill {
+    from { --ai-good-rate: 0%; }
+    to   { --ai-good-rate: 60%; }
+  }
+
+  /* JS가 동작할 때만 초기 숨김 상태를 사용합니다. */
+  html.motion-ready .motion-item {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  html.motion-ready .motion-item.motion-show {
+    animation: motionRise .52s cubic-bezier(.22,.72,.24,1) forwards;
+    animation-delay: var(--motion-delay, 0ms);
+  }
+
+  html.motion-ready .motion-sequence-item {
+    opacity: 0;
+    transform: translateY(10px) scale(.985);
+  }
+
+  html.motion-ready .motion-sequence-item.motion-show {
+    animation: motionPop .46s cubic-bezier(.22,.72,.24,1) forwards;
+    animation-delay: var(--motion-delay, 0ms);
+  }
+
+  /* AI 막대그래프: 기존 width 값은 유지하고 scaleX로만 표현 */
+  html.motion-ready #aiAnalysisPanel .ai-bar-fill {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  html.motion-ready #aiAnalysisPanel.active .ai-bar-fill.motion-bar-play {
+    animation: motionBarGrow .78s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: var(--motion-delay, 0ms);
+  }
+
+  /* AI 도넛: 0 → 60% */
+  html.motion-ready #aiAnalysisPanel .ai-donut.motion-donut-play {
+    --ai-good-rate: 0%;
+    background: conic-gradient(
+      #0a7d47 0 var(--ai-good-rate),
+      #f1c56f var(--ai-good-rate) 100%
+    );
+    animation: motionDonutFill .95s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  /* 버튼의 화살표만 가볍게 이동 */
+  .ai-full-analysis-button span {
+    display: inline-block;
+    transition: transform .18s ease;
+  }
+
+  .ai-full-analysis-button:hover span,
+  .ai-full-analysis-button:focus-visible span {
+    transform: translate(2px, -2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.motion-ready .motion-item,
+    html.motion-ready .motion-sequence-item,
+    html.motion-ready #aiAnalysisPanel .ai-bar-fill {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    html.motion-ready #aiAnalysisPanel .ai-donut.motion-donut-play {
+      --ai-good-rate: 60%;
+      animation: none !important;
+    }
+
+    .ai-full-analysis-button span {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script id="motionScript">
+(function () {
+  document.documentElement.classList.add('motion-ready');
+
+  function showWithDelay(el, delay) {
+    if (!el) return;
+    el.classList.add('motion-item');
+    el.style.setProperty('--motion-delay', (delay || 0) + 'ms');
+    requestAnimationFrame(function () {
+      el.classList.add('motion-show');
+    });
+  }
+
+  function replaySequence(container, selector) {
+    if (!container) return;
+    var items = Array.prototype.slice.call(container.querySelectorAll(selector));
+    items.forEach(function (el, index) {
+      el.classList.add('motion-sequence-item');
+      el.classList.remove('motion-show');
+      el.style.setProperty('--motion-delay', (index * 70) + 'ms');
+    });
+
+    /* animation을 다시 시작하기 위한 reflow */
+    if (items[0]) void items[0].offsetWidth;
+
+    requestAnimationFrame(function () {
+      items.forEach(function (el) { el.classList.add('motion-show'); });
+    });
+  }
+
+  function animateNumber(el, target, duration) {
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = target + '%';
+      return;
+    }
+
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + '%';
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function playAIAnimations() {
+    var panel = document.getElementById('aiAnalysisPanel');
+    if (!panel || !panel.classList.contains('active')) return;
+
+    replaySequence(
+      panel,
+      '.ai-analysis-hero, .ai-status-card, .ai-opinion, .ai-recommend-head, .ai-product-card, .ai-recommend-caution, .ai-full-analysis-section'
+    );
+
+    var donut = panel.querySelector('.ai-donut');
+    if (donut) {
+      donut.classList.remove('motion-donut-play');
+      void donut.offsetWidth;
+      donut.classList.add('motion-donut-play');
+    }
+
+    var centerValue = panel.querySelector('.ai-donut-center strong');
+    if (centerValue) animateNumber(centerValue, 60, 900);
+
+    var bars = Array.prototype.slice.call(panel.querySelectorAll('.ai-bar-fill'));
+    bars.forEach(function (bar, index) {
+      bar.classList.remove('motion-bar-play');
+      bar.style.setProperty('--motion-delay', (180 + index * 90) + 'ms');
+    });
+    if (bars[0]) void bars[0].offsetWidth;
+    requestAnimationFrame(function () {
+      bars.forEach(function (bar) { bar.classList.add('motion-bar-play'); });
+    });
+  }
+
+  function playDetailAnimation(detailId) {
+    var detail = document.getElementById(detailId);
+    if (!detail || !detail.classList.contains('open')) return;
+    replaySequence(
+      detail,
+      '.summary-detail-header, .payment-info-card, .nonpayment-info-card, .other-term-card, .coverage-card'
+    );
+  }
+
+  function initScrollMotion() {
+    var targets = Array.prototype.slice.call(document.querySelectorAll(
+      '#summaryPanel > .page-title, #summaryPanel > .product-box, #summaryPanel > .product-intro, ' +
+      '#summaryPanel > .summary-chart-wrap, #summaryPanel > .summary-grid, #summaryPanel > .section-title, ' +
+      '#summaryPanel > .accordion, #summaryPanel > .notice'
+    ));
+
+    targets.forEach(function (el) { el.classList.add('motion-item'); });
+
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(function (el, index) { showWithDelay(el, index * 55); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        el.style.setProperty('--motion-delay', '0ms');
+        el.classList.add('motion-show');
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initScrollMotion();
+
+    /* 기본으로 열려 있는 지급사유 상세도 첫 진입 시 자연스럽게 표시 */
+    setTimeout(function () {
+      playDetailAnimation('paymentReasonDetail');
+    }, 180);
+
+    [
+      ['paymentReasonCard', 'paymentReasonDetail'],
+      ['nonPaymentReasonCard', 'nonPaymentReasonDetail'],
+      ['otherTermsCard', 'otherTermsDetail']
+    ].forEach(function (pair) {
+      var card = document.getElementById(pair[0]);
+      if (!card) return;
+      card.addEventListener('click', function () {
+        setTimeout(function () { playDetailAnimation(pair[1]); }, 30);
+      });
+    });
+
+    var aiTab = document.getElementById('aiAnalysisTab');
+    if (aiTab) {
+      aiTab.addEventListener('click', function () {
+        setTimeout(playAIAnimations, 30);
+      });
+    }
+  });
+})();
+</script>
+
+
+<!-- ===== Terms summary motion enhancement: opacity + transform only ===== -->
+<style id="summaryMotionEnhancement">
+  @keyframes summaryCardIn {
+    from { opacity: 0; transform: translateY(12px) scale(.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes summarySelectTap {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(.985); }
+    100% { transform: scale(1); }
+  }
+
+  html.motion-ready #summaryPanel .summary-coverage-row.summary-motion-item,
+  html.motion-ready #summaryPanel .summary-card.summary-motion-item {
+    opacity: 0;
+    transform: translateY(12px) scale(.985);
+  }
+
+  html.motion-ready #summaryPanel .summary-coverage-row.summary-motion-item.summary-motion-show,
+  html.motion-ready #summaryPanel .summary-card.summary-motion-item.summary-motion-show {
+    animation: summaryCardIn .46s cubic-bezier(.22,.72,.24,1) forwards;
+    animation-delay: var(--summary-motion-delay, 0ms);
+  }
+
+  #summaryPanel .summary-card.summary-motion-tap {
+    animation: summarySelectTap .22s ease;
+  }
+
+  /* 상세영역은 display 제어는 기존 로직을 그대로 사용하고, 내부 요소만 움직입니다. */
+  html.motion-ready .coverage-section .coverage-head.summary-detail-motion,
+  html.motion-ready .coverage-section .payment-info-card.summary-detail-motion,
+  html.motion-ready .coverage-section .nonpayment-info-card.summary-detail-motion,
+  html.motion-ready .coverage-section .other-term-card.summary-detail-motion,
+  html.motion-ready .coverage-section .coverage-card.summary-detail-motion {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  html.motion-ready .coverage-section .summary-detail-motion.summary-detail-show {
+    animation: summaryCardIn .44s cubic-bezier(.22,.72,.24,1) forwards;
+    animation-delay: var(--summary-detail-delay, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.motion-ready #summaryPanel .summary-coverage-row.summary-motion-item,
+    html.motion-ready #summaryPanel .summary-card.summary-motion-item,
+    html.motion-ready .coverage-section .summary-detail-motion {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    #summaryPanel .summary-card.summary-motion-tap {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script id="summaryMotionEnhancementScript">
+(function () {
+  function replayItems(items, className, showClass, delayProperty, step) {
+    items.forEach(function (el, index) {
+      el.classList.add(className);
+      el.classList.remove(showClass);
+      el.style.setProperty(delayProperty, (index * step) + 'ms');
+    });
+    if (items[0]) void items[0].offsetWidth;
+    requestAnimationFrame(function () {
+      items.forEach(function (el) { el.classList.add(showClass); });
+    });
+  }
+
+  function playSummaryOverview() {
+    var panel = document.getElementById('summaryPanel');
+    if (!panel || panel.classList.contains('hidden')) return;
+
+    var coverageRows = Array.prototype.slice.call(panel.querySelectorAll('.summary-coverage-row'));
+    replayItems(coverageRows, 'summary-motion-item', 'summary-motion-show', '--summary-motion-delay', 65);
+
+    var summaryCards = Array.prototype.slice.call(panel.querySelectorAll('.summary-grid .summary-card'));
+    summaryCards.forEach(function (el, index) {
+      el.classList.add('summary-motion-item');
+      el.classList.remove('summary-motion-show');
+      el.style.setProperty('--summary-motion-delay', (140 + index * 80) + 'ms');
+    });
+    if (summaryCards[0]) void summaryCards[0].offsetWidth;
+    requestAnimationFrame(function () {
+      summaryCards.forEach(function (el) { el.classList.add('summary-motion-show'); });
+    });
+  }
+
+  function playTermsDetail(detailId) {
+    var detail = document.getElementById(detailId);
+    if (!detail || !detail.classList.contains('open')) return;
+
+    var items = Array.prototype.slice.call(detail.querySelectorAll(
+      '.coverage-head, .payment-info-card, .nonpayment-info-card, .other-term-card, .coverage-card'
+    ));
+    replayItems(items, 'summary-detail-motion', 'summary-detail-show', '--summary-detail-delay', 70);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(playSummaryOverview, 70);
+    setTimeout(function () { playTermsDetail('paymentReasonDetail'); }, 260);
+
+    [
+      ['paymentReasonCard', 'paymentReasonDetail'],
+      ['nonPaymentReasonCard', 'nonPaymentReasonDetail'],
+      ['otherTermsCard', 'otherTermsDetail']
+    ].forEach(function (pair) {
+      var card = document.getElementById(pair[0]);
+      if (!card) return;
+
+      card.addEventListener('click', function () {
+        card.classList.remove('summary-motion-tap');
+        void card.offsetWidth;
+        card.classList.add('summary-motion-tap');
+
+        setTimeout(function () {
+          playTermsDetail(pair[1]);
+        }, 35);
+      });
+    });
+
+    var summaryTab = document.getElementById('summaryTab');
+    if (summaryTab) {
+      summaryTab.addEventListener('click', function () {
+        setTimeout(playSummaryOverview, 45);
+        setTimeout(function () {
+          var opened = document.querySelector('#summaryPanel .coverage-section.open');
+          if (opened && opened.id) playTermsDetail(opened.id);
+        }, 160);
+      });
+    }
+  });
+})();
 </script>
 
 </body>
